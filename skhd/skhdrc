@@ -1,0 +1,148 @@
+# Grid fun: --grid <rows>:<cols>:<start-x>:<start-y>:<width>:<height>
+
+# Toggle ffm
+
+# Restart yabai (assuming yabai is installed via homebrew services)
+# cmd + ctrl + alt - r : brew services restart yabai
+
+
+
+# send window to desktop
+# alt + ctrl - 1 : yabai -m window --space  1; yabai -m space --focus 1
+# alt + ctrl  - 2 : yabai -m window --space  2; yabai -m space --focus 2
+# alt + ctrl  - 3 : yabai -m window --space  3; yabai -m space --focus 3
+# alt + ctrl  - 4 : yabai -m window --space  4; yabai -m space --focus 4
+
+.blacklist [
+  "terminal"
+]
+
+
+
+#####################################################
+# FLOAT MODE
+#####################################################
+# Define "float" mode
+:: float : yabai -m space --layout float
+
+# Move windows around when floating
+float < cmd + alt - l : yabai -m window --grid 2:2:1:0:2:2
+float < cmd + alt - j : yabai -m window --grid 2:2:0:1:2:1
+float < cmd + alt - k : yabai -m window --grid 2:2:0:0:2:1
+float < cmd + alt - h : yabai -m window --grid 2:2:0:0:1:2
+
+# Move window to corners
+float < cmd + alt - u : yabai -m window --grid 2:2:0:0:1:1
+float < cmd + alt - i : yabai -m window --grid 2:2:1:0:1:1
+float < cmd + alt - m : yabai -m window --grid 2:2:0:1:1:1
+float < cmd + alt - 0x2B : yabai -m window --grid 2:2:1:1:1:1
+
+# Move window to center
+float < alt - c : yabai -m window --grid 10:10:3:2:4:6
+# Full screen when floating
+float < alt - f : yabai -m window --grid 1:1:0:0:1:1
+
+#####################################################
+# STACK MODE
+#####################################################
+# Define "stack" mode
+:: stack : yabai -m space --layout stack
+
+
+
+#####################################################
+# BSP MODE
+#####################################################
+:: bsp : yabai -m space --padding abs:0:0:0:0;\
+	 yabai -m space --gap abs:0;\
+	 yabai -m space --layout bsp
+
+# Used to move focus to windows
+bsp < alt - h : yabai -m window --focus west
+bsp < alt - j : yabai -m window --focus south
+bsp < alt - k : yabai -m window --focus north
+bsp < alt - l : yabai -m window --focus east
+
+# Toggle window split type
+bsp < alt - e : yabai -m window --toggle split
+
+# Move windows
+bsp < cmd + alt - l : yabai -m window --warp east
+bsp < cmd + alt - j : yabai -m window --warp south
+bsp < cmd + alt - k : yabai -m window --warp north
+bsp < cmd + alt - h : yabai -m window --warp west
+
+# Move and stack a window. Alternativly drag and drop
+#  a window onto the center of another window
+bsp < cmd + alt + shift - l : yabai -m window --stack east
+bsp < cmd + alt + shift - j : yabai -m window --stack south
+bsp < cmd + alt + shift - k : yabai -m window --stack north
+bsp < cmd + alt + shift - h : yabai -m window --stack west
+
+# Toggle window zoom
+bsp < alt - z : yabai -m window --toggle zoom-parent
+bsp < alt - f : yabai -m window --toggle zoom-fullscreen
+
+# Mirror window along an axis
+bsp < alt - y : yabai -m space --mirror y-axis
+bsp < alt - x : yabai -m space --mirror x-axis
+
+# Padding and gap fun
+# alt - - : Remove more padding and gaps
+stack, bsp < alt - 0x1B : yabai -m space --padding rel:-15:-15:-15:-15;\
+	           yabai -m space --gap rel:-15
+
+# alt - + : Add more padding and gaps
+stack, bsp < alt - 0x18 : yabai -m space --padding rel:15:15:15:15;\
+	           yabai -m space --gap rel:15
+
+# alt - 0 : Reset padding and gaps to 0
+stack, bsp < alt - 0x1D : yabai -m space --padding abs:0:0:0:0;\
+	           yabai -m space --gap abs:0
+
+# Float / unfloat window and center on screen
+bsp < alt - w : yabai -m window --toggle float
+
+
+#####################################################
+# MULTI - MODE COMMANDS
+#####################################################
+default, bsp, float, stack < alt - d ; float
+default, bsp, float, stack < alt - s ; stack
+default, bsp, float, stack < alt - a ; bsp
+
+default, bsp, float, stack < alt - m : yabai -m config focus_follows_mouse autofocus
+default, bsp, float, stack < alt + shift - m : yabai -m config focus_follows_mouse off
+
+# Used to navigate stacks
+bsp, stack < alt - n : yabai -m window --focus stack.next || yabai -m window --focus stack.first
+bsp, stack < alt - p : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
+
+
+# Toggle Audio Per Program
+default, bsp, float, stack < cmd + alt - a [
+ "zoom.us": skhd -k "cmd + shift - a"
+ "facetime": skhd -k "cmd + shift - m"
+ "microsoft teams": skhd -k "cmd + shift - m"
+]
+
+# Toggle Video Per Program
+default, bsp, float, stack < cmd + alt - v [
+  "zoom.us": skhd -k "cmd + shift - v"
+  "microsoft teams": skhd -k "cmd + shift - o"
+]
+
+# focus monitor
+ctrl + cmd - 1  : yabai -m display --focus prev
+ctrl + cmd - 2  : yabai -m display --focus 3
+
+# send window to monitor and follow focus
+ctrl + cmd - l  : yabai -m window --display next; yabai -m display --focus next
+ctrl + cmd - h  : yabai -m window --display 1; yabai -m display --focus 1
+
+
+# default, bsp, float, stack < escape [
+#  "safari" : @
+# ]
+
+# default, bsp, float, stack < alt - return : open /System/Applications/Utilities/Terminal.app
