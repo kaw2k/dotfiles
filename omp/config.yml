@@ -1,0 +1,37 @@
+symbolPreset: nerd
+composer:
+  shape: box
+theme:
+  dark: titanium
+  light: light
+setupVersion: 2
+modelRoles:
+  default: azure-foundry/claude-sonnet-5
+  smol: azure-foundry/claude-haiku-4-5
+  slow: azure-foundry/claude-opus-5
+  plan: azure-foundry/claude-opus-5
+  vision: azure-foundry/claude-sonnet-5
+  designer: azure-foundry/claude-sonnet-5
+  commit: azure-foundry/claude-haiku-4-5
+  tiny: azure-foundry/claude-haiku-4-5
+  task: azure-foundry/claude-sonnet-5
+  advisor: azure-foundry/claude-sonnet-5
+defaultThinkingLevel: auto
+disabledProviders:
+  - paths:
+      - ~/LocalDev/aptos
+      - ~/conductor/workspaces
+      - ~/orca-workspaces
+    providers:
+      - anthropic
+      - openai-codex
+retry:
+  modelFallback: true
+  usageAwareFallback: true
+  usageReservePct: 10
+  usageReservePolicy: auto
+  fallbackRevertPolicy: cooldown-expiry
+  fallbackChains:
+    default:
+      - anthropic/claude-sonnet-5
+      - openai-codex/gpt-5.5

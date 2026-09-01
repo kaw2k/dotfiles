@@ -1,0 +1,25 @@
+{
+  "plugins": {
+    "@nquandt/pi-azure-foundry": {
+      "version": "1.0.3",
+      "enabledFeatures": null,
+      "enabled": true
+    },
+    "context-mode": {
+      "version": "1.0.169",
+      "enabledFeatures": null,
+      "enabled": true
+    },
+    "pi-workspace-history": {
+      "version": "0.3.0",
+      "enabledFeatures": null,
+      "enabled": true
+    },
+    "pi-knowledge": {
+      "version": "0.10.0",
+      "enabledFeatures": null,
+      "enabled": true
+    }
+  },
+  "settings": {}
+}

@@ -1,0 +1,9 @@
+{
+  "name": "omp-plugins",
+  "private": true,
+  "dependencies": {
+    "context-mode": "^1.0.169",
+    "pi-knowledge": "^0.10.0",
+    "pi-workspace-history": "^0.3.0"
+  }
+}
